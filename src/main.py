@@ -264,10 +264,12 @@ class MyLinearRegression():
     def fit_(self, x, y):
         if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
             or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
+                print("nothing fit")
                 return None
             
         m, n = x.shape
         if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
+            print("nothing fit2")
             return None
     
         new_theta = self.thetas.copy()
@@ -623,15 +625,15 @@ class MyPloter():
 def add_polynomial_features(x, power):
     """Add polynomial features to vector x by raising its values up to the power given in argument.
     Args:
-    x: has to be an numpy.array, a vector of dimension m * 1.
-    power: has to be an int, the power up to which the components of vector x are going to be raised.
+        x: has to be an numpy.array, a vector of dimension m * 1.
+        power: has to be an int, the power up to which the components of vector x are going to be raised.
     Return:
-    The matrix of polynomial features as a numpy.array, of dimension m * n,
-    containing the polynomial feature values for all training examples.
-    None if x is an empty numpy.array.
-    None if x or power is not of expected type.
+        The matrix of polynomial features as a numpy.array, of dimension m * n,
+        containing the polynomial feature values for all training examples.
+        None if x is an empty numpy.array.
+        None if x or power is not of expected type.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     
     if not isinstance(x, np.ndarray) or not isinstance(power, int):
