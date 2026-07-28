@@ -1,4 +1,3 @@
-# %%
 import numpy as np
 from matplotlib import pyplot as plt
 import sklearn
@@ -89,20 +88,31 @@ def loss_simple(y, y_hat):
 
 def loss_(y, y_hat):
     """
-    Description:
-    Calculates the value of loss function.
+    Computes the mean squared error of two non-empty numpy.array, without any for loop.
+    The two arrays must have the same dimensions.
     Args:
-    y: has to be an numpy.array, a two-dimensional array of shape m * 1.
-    y_hat: has to be an numpy.array, a two-dimensional array of shape m * 1.
-    Returns:
-    J_value : has to be a float.
-    None if there is a dimension matching problem.
+        y: has to be an numpy.array, a vector.
+        y_hat: has to be an numpy.array, a vector.
+    Return:
+        The mean squared error of the two vectors as a float.
+        None if y or y_hat are empty numpy.array.
+        None if y and y_hat does not share the same dimensions.
+        None if y or y_hat is not of expected type.
+    Raises:
+        This function should not raise any Exception.
     """
-    if y.shape != y_hat.shape:
+
+    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
         return None
-    
+    if y.size == 0 or y_hat.size == 0:
+        return None
+    if y.shape[0] != y_hat.shape[0]:
+        return None
+
     m = y.shape[0]
-    return (y_hat - y) @ (y_hat - y) / (2 * m)
+    X = np.squeeze(y)
+    Y = np.squeeze(y_hat)
+    return np.dot((Y - X), (Y - X)) / (2 * m)
 
 def plot_with_loss(x, y, theta):
     """Plot the data and prediction line from three non-empty numpy.ndarray.
@@ -116,7 +126,7 @@ def plot_with_loss(x, y, theta):
     This function should not raise any Exception.
     """
     
-    if x.ndim != 1 or y.ndim != 1 or theta.size != 2:
+    if x.shape[0] != 1 or y.shape[0] != 1 or theta.size != 2:
         return None
 
     m = x.shape[0]
@@ -301,14 +311,14 @@ class MyLinearRegression():
         return y_hat
     
     def loss_elem_(self, y, y_hat):
-        if y.shape != y_hat.shape:
+        if y.shape[0] != y_hat.shape[0]:
             return None
         
         J_elem = (y_hat - y) ** 2
         return J_elem
     
     def loss_(self, y, y_hat):
-        if y.shape != y_hat.shape:
+        if y.shape[0] != y_hat.shape[0]:
             return None
         
         m = y.shape[0]
@@ -380,15 +390,15 @@ def minmax(x):
 def simple_predict(x, theta):
     """Computes the prediction vector y_hat from two non-empty numpy.array.
     Args:
-    x: has to be an numpy.array, a matrix of dimension m * n.
-    theta: has to be an numpy.array, a vector of dimension (n + 1) * 1.
+        x: has to be an numpy.array, a matrix of dimension m * n.
+        theta: has to be an numpy.array, a vector of dimension (n + 1) * 1.
     Return:
-    y_hat as a numpy.array, a vector of dimension m * 1.
-    None if x or theta are empty numpy.array.
-    None if x or theta dimensions are not matching.
-    None if x or theta is not of expected type.
-    Raises:
-    This function should not raise any Exception.
+        y_hat as a numpy.array, a vector of dimension m * 1.
+        None if x or theta are empty numpy.array.
+        None if x or theta dimensions are not matching.
+        None if x or theta is not of expected type.
+        Raises:
+        This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(theta, np.ndarray):
         return None
@@ -429,7 +439,7 @@ def predict_(x, theta):
     
     return y_hat
 
-def loss_(y, y_hat):
+def loss_simple(y, y_hat):
     """Computes the mean squared error of two non-empty numpy.array, without any for loop.
     The two arrays must have the same dimensions.
     Args:
@@ -445,8 +455,9 @@ def loss_(y, y_hat):
     """
     if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
         return None
-    
-    if y.shape != y_hat.shape:
+    if y.size == 0 or y_hat.size == 0:
+        return None
+    if y.shape[0] != y_hat.shape[0]:
         return None
     
     m = y.shape[0]
@@ -587,7 +598,7 @@ class MyLinearRegression2():
         return y_hat
     
     def loss_elem_(self, y, y_hat):
-        if y.shape != y_hat.shape:
+        if y.shape[0] != y_hat.shape[0]:
             return None
         
         J_elem = (y_hat - y) ** 2
@@ -597,7 +608,7 @@ class MyLinearRegression2():
         if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
             return None
         
-        if y.shape != y_hat.shape:
+        if y.shape[0] != y_hat.shape[0]:
             return None
         
         m = y.shape[0]
