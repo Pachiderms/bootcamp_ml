@@ -251,32 +251,6 @@ def simple_gradient(x, y, theta):
     
     return grad
 
-# def fit_(x, y, theta, alpha, max_iter):
-#     """
-#     Description:
-#     Fits the model to the training dataset contained in x and y.
-#     Args:
-#     x: has to be a numpy.ndarray, a vector of dimension m * 1: (number of training examples, 1).
-#     y: has to be a numpy.ndarray, a vector of dimension m * 1: (number of training examples, 1).
-#     theta: has to be a numpy.ndarray, a vector of dimension 2 * 1.
-#     alpha: has to be a float, the learning rate
-#     max_iter: has to be an int, the number of iterations done during the gradient descent
-#     Returns:
-#     new_theta: numpy.ndarray, a vector of dimension 2 * 1.
-#     None if there is a matching dimension problem.
-#     Raises:
-#     This function should not raise any Exception.
-#     """
-#     if x.shape != y.shape or theta.shape != (2, 1):
-#         return None
-
-#     new_theta = theta.copy()
-#     for _ in range(max_iter):
-#         grad = gradient(x, y, new_theta)
-#         new_theta = new_theta - alpha * grad
-
-#     return new_theta
-
 class MyLinearRegression():
     """
     Description:
@@ -285,10 +259,11 @@ class MyLinearRegression():
     def __init__(self, thetas, alpha=0.001, max_iter=1000):
         self.alpha = alpha
         self.max_iter = max_iter
-        self.thetas = thetas
+        self.thetas = np.array(thetas)
         
     def fit_(self, x, y):
-        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
+            or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
                 return None
             
         m, n = x.shape
@@ -417,15 +392,15 @@ def simple_predict(x, theta):
 def predict_(x, theta):
     """Computes the prediction vector y_hat from two non-empty numpy.array.
     Args:
-    x: has to be an numpy.array, a vector of dimensions m * n.
-    theta: has to be an numpy.array, a vector of dimensions (n + 1) * 1.
+        x: has to be an numpy.array, a vector of dimensions m * n.
+        theta: has to be an numpy.array, a vector of dimensions (n + 1) * 1.
     Return:
-    y_hat as a numpy.array, a vector of dimensions m * 1.
-    None if x or theta are empty numpy.array.
-    None if x or theta dimensions are not appropriate.
-    None if x or theta is not of expected type.
+        y_hat as a numpy.array, a vector of dimensions m * 1.
+        None if x or theta are empty numpy.array.
+        None if x or theta dimensions are not appropriate.
+        None if x or theta is not of expected type.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(theta, np.ndarray):
         return None
@@ -443,15 +418,15 @@ def loss_simple(y, y_hat):
     """Computes the mean squared error of two non-empty numpy.array, without any for loop.
     The two arrays must have the same dimensions.
     Args:
-    y: has to be an numpy.array, a vector.
-    y_hat: has to be an numpy.array, a vector.
+        y: has to be an numpy.array, a vector.
+        y_hat: has to be an numpy.array, a vector.
     Return:
-    The mean squared error of the two vectors as a float.
-    None if y or y_hat are empty numpy.array.
-    None if y and y_hat does not share the same dimensions.
-    None if y or y_hat is not of expected type.
+        The mean squared error of the two vectors as a float.
+        None if y or y_hat are empty numpy.array.
+        None if y and y_hat does not share the same dimensions.
+        None if y or y_hat is not of expected type.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
         return None
@@ -468,17 +443,17 @@ def gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.array, without any for-loop.
     The three arrays must have the compatible dimensions.
     Args:
-    x: has to be an numpy.array, a matrix of dimension m * n.
-    y: has to be an numpy.array, a vector of dimension m * 1.
-    theta: has to be an numpy.array, a vector (n +1) * 1.
+        x: has to be an numpy.array, a matrix of dimension m * n.
+        y: has to be an numpy.array, a vector of dimension m * 1.
+        theta: has to be an numpy.array, a vector (n +1) * 1.
     Return:
-    The gradient as a numpy.array, a vector of dimensions n * 1,
-    containg the result of the formula for all j.
-    None if x, y, or theta are empty numpy.array.
-    None if x, y and theta do not have compatible dimensions.
-    None if x, y or theta is not of expected type.
+        The gradient as a numpy.array, a vector of dimensions n * 1,
+        containg the result of the formula for all j.
+        None if x, y, or theta are empty numpy.array.
+        None if x, y and theta do not have compatible dimensions.
+        None if x, y or theta is not of expected type.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
         return None
@@ -497,25 +472,26 @@ def gradient(x, y, theta):
 def fit_(x, y, theta, alpha, max_iter):
     """
     Description:
-    Fits the model to the training dataset contained in x and y.
+        Fits the model to the training dataset contained in x and y.
     Args:
-    x: has to be a numpy.array, a matrix of dimension m * n:
-    (number of training examples, number of features).
-    y: has to be a numpy.array, a vector of dimension m * 1:
-    (number of training examples, 1).
-    theta: has to be a numpy.array, a vector of dimension (n + 1) * 1:
-    (number of features + 1, 1).
-    alpha: has to be a float, the learning rate
-    max_iter: has to be an int, the number of iterations done during the gradient descent
+        x: has to be a numpy.array, a matrix of dimension m * n:
+        (number of training examples, number of features).
+        y: has to be a numpy.array, a vector of dimension m * 1:
+        (number of training examples, 1).
+        theta: has to be a numpy.array, a vector of dimension (n + 1) * 1:
+        (number of features + 1, 1).
+        alpha: has to be a float, the learning rate
+        max_iter: has to be an int, the number of iterations done during the gradient descent
     Return:
-    new_theta: numpy.array, a vector of dimension (number of features + 1, 1).
-    None if there is a matching dimension problem.
-    None if x, y, theta, alpha or max_iter is not of expected type.
+        new_theta: numpy.array, a vector of dimension (number of features + 1, 1).
+        None if there is a matching dimension problem.
+        None if x, y, theta, alpha or max_iter is not of expected type.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     
-    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
+    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
+        or not isinstance(theta, np.ndarray) or not isinstance(alpha, float):
         return None
     
     m, n = x.shape
