@@ -3,125 +3,60 @@ from matplotlib import pyplot as plt
 from src.prediction import predict_
 from src.gradient import gradient
 
+
 class MyLinearRegression():
-    """
-    Description:
-    My personnal linear regression class to fit like a boss.
-    """
-    def __init__(self, thetas, alpha=0.001, max_iter=1000):
-        self.alpha = alpha
-        self.max_iter = max_iter
-        self.thetas = np.asarray(thetas, dtype=float).reshape(-1, 1)
-        
-    def fit_(self, x, y):
-        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
-            or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
-                print("nothing fit")
-                return None
-            
-        m, n = x.shape
-        if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
-            print("nothing fit2")
-            return None
-    
-        new_theta = self.thetas.copy()
-        for _ in range(self.max_iter):
-            grad = gradient(x, y, new_theta)
-            new_theta = new_theta - self.alpha * grad
-        
-        self.thetas = new_theta
-        return self
-
-    def predict_(self, x):
-        m = x.shape[0]
-        X = np.hstack([np.ones((m, 1)), x])
-        y_hat = X @ self.thetas
-
-        return y_hat
-    
-    def loss_elem_(self, y, y_hat):
-        if y.shape[0] != y_hat.shape[0]:
-            return None
-        
-        J_elem = (y_hat - y) ** 2
-        return J_elem
-    
-    def loss_(self, y, y_hat):
-        if y.shape[0] != y_hat.shape[0]:
-            return None
-        
-        m = y.shape[0]
-        return np.sum((y_hat - y) ** 2) / (2 * m)
-    
-    def mse_(self, y, y_hat):
-        if y.shape != y_hat.shape:
-            return None
-        
-        m = y.shape[0]
-        mse = np.sum((y_hat - y) ** 2) / m
-        return mse
-
-class MyLinearRegression2():
     """
     Description:
     My personnal multiple linear regression class to fit like a boss.
     """
     def __init__(self, thetas, alpha=0.001, max_iter=1000):
-        """_summary_
-
-        Args:
-            thetas (np.array): _description_
-            alpha (float, optional): _description_. Defaults to 0.001.
-            max_iter (int, optional): _description_. Defaults to 1000.
-        """
         self.alpha = alpha
         self.max_iter = max_iter
         self.thetas = np.asarray(thetas, dtype=float).reshape(-1, 1)
+        self.costs = []
         
     def fit_(self, x, y):
-        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
-            print("type err")
+        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
+            or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
+            print('type err')
             return None
-        
+            
         m, n = x.shape
         if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
-            print("shape err")
+            print(f'shape err: {x.shape=} {y.shape=} {self.thetas.shape=}')
             return None
+
+        self.costs.clear()
         
-        plt.figure()
-        plt.xlabel("iterations")
-        plt.ylabel("J(w, b)")
-                
         new_theta = self.thetas.copy()
-        costs = []
-        # colors = plt.cm.rainbow(np.linspace(0, 1, self.max_iter))
-        
-        for i in range(self.max_iter):
+        for _ in range(self.max_iter):
             y_hat = predict_(x, new_theta)
             current_loss = self.loss_(y, y_hat)
-            costs.append(current_loss)
-            
+            self.costs.append(current_loss)
+                            
             grad = gradient(x, y, new_theta)
             new_theta = new_theta - self.alpha * grad
             
-        plt.plot(costs, label='learning curve')
-        plt.legend()
-        plt.show()
-
         self.thetas = new_theta
         return self
 
+    def plot_learning_curve(self):
+        plt.figure()
+        plt.xlabel("iterations")
+        plt.ylabel("J(w, b)")
+
+        plt.plot(self.costs, label='learning curve')
+        plt.legend()
+        plt.show()
+
     def predict_(self, x):
         if not isinstance(x, np.ndarray):
-            print("x err")
             return None
         
         m, n = x.shape
         
         if self.thetas.shape != (n + 1, 1):
-            print("theta err")
-            print(f"x shape: {x.shape}")
-            print(self.thetas.shape)
+            print('theta shape err')
             return None
         
         X = np.hstack([np.ones((m, 1)), x])
