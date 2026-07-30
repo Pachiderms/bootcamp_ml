@@ -111,6 +111,12 @@ class MyPloter():
         ax.plot(x, y, **param_dict)
         ax.legend()
 
+def add_polynomial_features_mult(x, degree):
+    return np.hstack([
+        add_polynomial_features(x[:, [i]], degree)
+        for i in range(x.shape[1])
+    ])
+
 def add_polynomial_features(x, power):
     """Add polynomial features to vector x by raising its values up to the power given in argument.
     Args:
