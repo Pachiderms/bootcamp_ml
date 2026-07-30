@@ -4,12 +4,12 @@ def sigmoid_(x):
     """
     Compute the sigmoid of a vector.
     Args:
-    x: has to be a numpy.ndarray of shape (m, 1).
+        x: has to be a numpy.ndarray of shape (m, 1).
     Returns:
-    The sigmoid value as a numpy.ndarray of shape (m, 1).
-    None if x is an empty numpy.ndarray.
+        The sigmoid value as a numpy.ndarray of shape (m, 1).
+        None if x is an empty numpy.ndarray.
     Raises:
-    This function should not raise any Exception.
+        This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray):
         return None
