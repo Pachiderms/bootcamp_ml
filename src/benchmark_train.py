@@ -28,7 +28,6 @@ def train_models(x_train, x_test, y_train, y_test, degree):
         'max_iter': [m.max_iter for m in models],
     })
 
-    # print(df)
     df.to_csv(path_or_buf="../attachments/models.csv", index=False)
     return (models, errors, predictions)
 
@@ -37,7 +36,6 @@ def train_models_from_csv(x_train, x_test, y_train, y_test, degrees, file="../at
     df = pd.read_csv(file)
     df['thetas'] = df["thetas"].apply(lambda x: np.array(ast.literal_eval(x)))
     df = df[df['degree'].isin(degrees)]
-    print(f"{df.info()}")
     deg = df['degree']
     thetas = df["thetas"]
     alphas = df['alpha']
@@ -47,19 +45,16 @@ def train_models_from_csv(x_train, x_test, y_train, y_test, degrees, file="../at
     predictions = []
 
     for d in range(1, len(degrees) + 1):
-            degree = deg.iloc[d - 1]
-            if degree  == 1:
-                xtr, xtst = x_train, x_test
+            degree = int(deg.iloc[d - 1])
+            if degree == 1:
+                (xtr, xtst) = (x_train, x_test)
             else:
-                xtr, xtst = add_polynomial_features_mult(x_train, degree), add_polynomial_features_mult(x_test, degree)
-
-            print(f"{xtr=}\n{xtst=}")
-            print(f"{deg.iloc[d - 1]}\n{thetas.iloc[d - 1]=}\n{alphas.iloc[d - 1]}\n{max_iters.iloc[d - 1]}")
+                (xtr, xtst) = (add_polynomial_features_mult(x_train, degree), add_polynomial_features_mult(x_test, degree)
+)
             m = MyLR(thetas=thetas.iloc[d - 1], alpha=alphas.iloc[d - 1], max_iter=max_iters.iloc[d - 1]).fit_(xtr, y_train)
             models.append(m)
             y_hat = m.predict_(xtst)
             predictions.append(y_hat)
             errors.append(m.mse_(y_test, y_hat))
 
-    print(errors)
     return (models, errors, predictions)

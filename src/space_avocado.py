@@ -10,13 +10,11 @@ from src.main import MyPloter as MyPlt
 
 def split_set(file="../attachments/space_avocado.csv", ratio=0.75):
     df = pd.read_csv(file)
-    print(df.describe())
 
     X = zscore(np.array(df[['weight', 'prod_distance', 'time_delivery']]))
     Y = zscore(np.array(df[["target"]]))
 
     (x_train, x_test, y_train, y_test) = data_spliter(X, Y, ratio)
-    print(f"{x_train.shape=} {y_train.shape=} {x_test.shape=} {y_test.shape=}")
     return (x_train, x_test, y_train, y_test)
 
 
@@ -31,8 +29,6 @@ def final_train():
     models.insert(1, best_model)
     errors.insert(1, best_model.mse_(y_test, y_hat))
     predictions.insert(1, y_hat)
-
-    print(f"{errors=}")
 
     plt.plot([1, 2, 3, 4], errors, marker='o', color='yellowgreen')
     plt.xlabel("Degree")
