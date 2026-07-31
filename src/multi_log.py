@@ -55,5 +55,10 @@ def one_vs_all():
         for i, col in enumerate(cols):
             out.at[id, col] = winners[:, i].tolist()
 
-    predictions = [out['planet0'], out['planet1'], out['planet2'], out['planet3']]
-    print(type(predictions))
+    predictions = [
+        out['planet0'], 
+        out['planet1'],
+        out['planet2'],
+        out['planet3']
+                    ]
+    print(predictions[0])
