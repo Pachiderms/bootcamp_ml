@@ -22,4 +22,5 @@ def vec_log_loss_(y, y_hat, eps=1e-15):
         return None
 
     np.clip(y_hat, eps, 1 - eps, out=y_hat)
-    return -(1 / m) * (np.dot(y.T, np.log(y_hat)) + np.dot((np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)))
+    sum = (np.dot(y.T, np.log(y_hat)) + np.dot((np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)))
+    return -(1 / m) * sum.item()

@@ -17,6 +17,7 @@ def data_spliter(x, y, proportion):
         This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
+        print(f"split type err: {type(x)=} {type(y)=}")
         return None
 
     m = x.shape[0]

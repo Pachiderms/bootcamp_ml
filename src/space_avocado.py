@@ -6,7 +6,7 @@ from src.linear_regression import MyLinearRegression as MyLR
 from src.linear_regression import add_polynomial_features_mult
 from src.benchmark_train import train_models_from_csv
 import matplotlib.pyplot as plt
-from src.linear_regression import MyPloter as MyPlt
+from src.plot import MyPloter as MyPlt
 
 def split_set(file="../attachments/space_avocado.csv", ratio=0.75):
     df = pd.read_csv(file)

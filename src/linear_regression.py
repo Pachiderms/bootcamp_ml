@@ -2,9 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from src.prediction import predict_
 from src.gradient import gradient
-from loss import loss_elem_, loss_
-from src.loss import mse_
-
+from src.loss import loss_elem_, loss_, mse_
 
 class MyLinearRegression():
     """

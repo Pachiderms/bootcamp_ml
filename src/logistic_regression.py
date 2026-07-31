@@ -18,7 +18,7 @@ class MyLogisticRegression():
     def fit_(self, x, y):
         if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
             or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
-            print('type err')
+            print(f'fit type err: {type(x)=} {type(y)=}')
             return None
             
         m, n = x.shape
@@ -64,9 +64,11 @@ class MyLogisticRegression():
 
     def mse_(self, y, y_hat):
         if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
+            print(f"mse type err: {type(y)=} {type(y_hat)=}")
             return None
         
         if y.shape != y_hat.shape:
+            print(f"mse shape err: {y.shape=} {y_hat.shape=}")
             return None
         
         m = y.shape[0]

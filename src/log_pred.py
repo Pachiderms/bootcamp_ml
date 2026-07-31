@@ -14,10 +14,12 @@ def logistic_predict_(x, theta):
         This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(theta, np.ndarray):
+        print(f"pred type err: {type(x)=} {type(theta)=}")
         return None
 
     m, n = x.shape
     if theta.shape != (n + 1, 1):
+        print(f"pred shape err: {x.shape=} {theta.shape=}")
         return None
 
     X = np.hstack([np.ones((m, 1)), x])

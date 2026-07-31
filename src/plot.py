@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
 from src.prediction import predict_
+import numpy as np
 
 class MyPloter():
     def __init__(self, sp=(1, 1), fs=(20, 5)):
