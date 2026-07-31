@@ -20,6 +20,6 @@ def log_loss_(y, y_hat, eps=1e-15):
         print(f"shape err: {y.shape=} {y_hat.shape=}")
         return None
 
-    np.clip(y_hat, eps, 1 - eps)
+    np.clip(y_hat, eps, 1 - eps, out=y_hat)
     m = y.shape[0]
     return -(1 / m) * np.sum(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat))

@@ -18,8 +18,8 @@ def vec_log_loss_(y, y_hat, eps=1e-15):
         return None
     m = y.shape[0]
     if (y.shape, y_hat.shape) != ((m, 1), (m, 1)):
-        print(f"shape err: {y.shape=} {y_hat.shape=}")
+        print(f"loss shape err: {y.shape=} {y_hat.shape=}")
         return None
 
-    np.clip(y_hat, eps, 1 - eps)
+    np.clip(y_hat, eps, 1 - eps, out=y_hat)
     return -(1 / m) * (np.dot(y.T, np.log(y_hat)) + np.dot((np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)))

@@ -23,7 +23,7 @@ class MyLogisticRegression():
             
         m, n = x.shape
         if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
-            print(f'shape err: {x.shape=} {y.shape=} {self.thetas.shape=}')
+            print(f'fit shape err: {x.shape=} {y.shape=} {self.thetas.shape=}')
             return None
 
         self.costs.clear()
@@ -59,7 +59,7 @@ class MyLogisticRegression():
         J_elem = (y_hat - y) ** 2
         return J_elem
     
-    def loss_(self, y, y_hat, eps=1e-15):
+    def loss_(self, y, y_hat):
         return vec_log_loss_(y, y_hat)    
 
     def mse_(self, y, y_hat):
