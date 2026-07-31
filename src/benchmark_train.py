@@ -21,7 +21,7 @@ def train_models(x_train, x_test, y_train, y_test, degree):
         predictions.append(y_hat)
         errors.append(m.mse_(y_test, y_hat))
 
-    df = pd.DataFrame(data= {
+    df = pd.DataFrame(data={
         'degree': [i for i in range(1, degree + 1)],
         'thetas': [m.thetas.tolist() for m in models],
         'alpha': [m.alpha for m in models],
