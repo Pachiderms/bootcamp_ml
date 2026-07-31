@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from src.prediction import predict_
 from src.gradient import gradient
+from loss import loss_elem_, loss_
+from src.loss import mse_
 
 
 class MyLinearRegression():
@@ -50,66 +52,16 @@ class MyLinearRegression():
         plt.show()
 
     def predict_(self, x):
-        if not isinstance(x, np.ndarray):
-            return None
-        
-        m, n = x.shape
-        
-        if self.thetas.shape != (n + 1, 1):
-            print('theta shape err')
-            return None
-        
-        X = np.hstack([np.ones((m, 1)), x])
-        y_hat = X @ self.thetas
-        
-        return y_hat
+        return predict_(x, self.thetas)
     
     def loss_elem_(self, y, y_hat):
-        if y.shape[0] != y_hat.shape[0]:
-            return None
-        
-        J_elem = (y_hat - y) ** 2
-        return J_elem
+        return loss_elem_(y, y_hat)
     
     def loss_(self, y, y_hat):
-        if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-            return None
-        
-        if y.shape[0] != y_hat.shape[0]:
-            return None
-        
-        m = y.shape[0]
-        loss = np.sum((y_hat - y) ** 2) / (2 * m)
-        return loss
+        return loss_(y, y_hat)
     
     def mse_(self, y, y_hat):
-        if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-            return None
-        
-        if y.shape != y_hat.shape:
-            return None
-        
-        m = y.shape[0]
-        mse = np.sum((y_hat - y) ** 2) / m
-        return mse
-
-class MyPloter():
-    def __init__(self, sp=(1, 1), fs=(20, 5)):
-        self.fig, self.ax = plt.subplots(sp[0], sp[1], figsize=fs)
-    
-    def scatter(self, x, y, xlabel="x", ylabel="y", color="blue", label="Data", s=20, ax_id=0):    
-        ax = self.ax[ax_id] if isinstance(self.ax, np.ndarray) else self.ax
-    
-        ax.scatter(x, y, color=color, label=label, s=s)
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel(ylabel)
-        ax.legend()
-        
-    def plot(self, x, y, param_dict={}, ax_id=0):
-        ax = self.ax[ax_id] if isinstance(self.ax, np.ndarray) else self.ax
-        
-        ax.plot(x, y, **param_dict)
-        ax.legend()
+        return mse_(y, y_hat)
 
 def add_polynomial_features_mult(x, degree):
     return np.hstack([

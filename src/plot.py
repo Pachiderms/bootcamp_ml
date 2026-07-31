@@ -1,6 +1,24 @@
 from matplotlib import pyplot as plt
 from src.prediction import predict_
 
+class MyPloter():
+    def __init__(self, sp=(1, 1), fs=(20, 5)):
+        self.fig, self.ax = plt.subplots(sp[0], sp[1], figsize=fs)
+    
+    def scatter(self, x, y, xlabel="x", ylabel="y", color="blue", label="Data", s=20, ax_id=0):    
+        ax = self.ax[ax_id] if isinstance(self.ax, np.ndarray) else self.ax
+    
+        ax.scatter(x, y, color=color, label=label, s=s)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel)
+        ax.legend()
+        
+    def plot(self, x, y, param_dict={}, ax_id=0):
+        ax = self.ax[ax_id] if isinstance(self.ax, np.ndarray) else self.ax
+        
+        ax.plot(x, y, **param_dict)
+        ax.legend()
+
 def plot(x, y, theta):
     """Plot the data and prediction line from three non-empty numpy.array.
     Args:

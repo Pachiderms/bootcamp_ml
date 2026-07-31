@@ -1,6 +1,6 @@
 import numpy as np
-from src.main import add_polynomial_features_mult
-from src.main import MyLinearRegression as MyLR
+from src.linear_regression import add_polynomial_features_mult
+from src.linear_regression import MyLinearRegression as MyLR
 import pandas as pd
 import ast
 

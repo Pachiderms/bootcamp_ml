@@ -2,11 +2,11 @@ import numpy as np
 import pandas as pd
 from src.data_spliter import data_spliter
 from src.standardization import zscore
-from src.main import MyLinearRegression as MyLR
-from src.main import add_polynomial_features_mult
+from src.linear_regression import MyLinearRegression as MyLR
+from src.linear_regression import add_polynomial_features_mult
 from src.benchmark_train import train_models_from_csv
 import matplotlib.pyplot as plt
-from src.main import MyPloter as MyPlt
+from src.linear_regression import MyPloter as MyPlt
 
 def split_set(file="../attachments/space_avocado.csv", ratio=0.75):
     df = pd.read_csv(file)
