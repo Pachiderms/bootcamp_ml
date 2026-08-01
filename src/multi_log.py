@@ -51,7 +51,8 @@ def one_vs_all():
     prediction = np.argmax(scores, axis=1).reshape(-1, 1)
 
     match = prediction == y_test_full
-    print(f"eval predictions: {np.sum(match) * 100 / len(y_test_full)}% accurate ({np.sum(match)} good predictions out of {len(y_test_full)}).")
+    print(f"eval predictions: {np.sum(match) * 100 / len(y_test_full)}% accurate.\n\
+({np.sum(match)} good predictions out of {len(y_test_full)}).")
 
     height = x_test[:, 0]
     weight = x_test[:, 1]
