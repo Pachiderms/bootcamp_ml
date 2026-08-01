@@ -18,7 +18,7 @@ def one_vs_all():
         5. Plot 3 scatter plots (one for each pair of citizen features) with the dataset and the
         final prediction of the model.
     Returns:
-        Nothing
+        Nothing.
     """
     df1 = pd.read_csv("../attachments/solar_system_census.csv")
     df2 = pd.read_csv("../attachments/solar_system_census_planets.csv")

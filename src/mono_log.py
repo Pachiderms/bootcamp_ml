@@ -5,6 +5,25 @@ import matplotlib.pyplot as plt
 from src.logistic_regression import MyLogisticRegression as MyLR
 
 def mono_log_(zipcode=0):
+    """
+    Description:
+        This program does:
+        1. Take an argument: zipcode=x with x being 0, 1, 2 or 3. If no argument, usage
+        will be displayed.
+        2. Split the dataset into a training and a test set.
+        3. Select your favorite Space Zipcode and generate a new numpy.array to label each
+        citizen according to your new selection criterion:
+        • 1 if the citizen's zipcode corresponds to your favorite planet.
+        • 0 if the citizen has another zipcode.
+        4. Train a logistic model to predict if a citizen comes from your favorite planet or not,
+        using your brand new label.
+        5. Calculate and display the fraction of correct predictions over the total number of
+        predictions based on the test set.
+        6. Plot 3 scatter plots (one for each pair of citizen features) with the dataset and the
+        final prediction of the model.
+    Returns:
+        Nothing.
+    """
     print(f"trainin on {zipcode=}")
     df1 = pd.read_csv("../attachments/solar_system_census.csv")
     df2 = pd.read_csv("../attachments/solar_system_census_planets.csv")
@@ -26,9 +45,7 @@ def mono_log_(zipcode=0):
     my_log_reg = MyLR(thetas=np.ones((x_train.shape[1] + 1, 1)), alpha=1e-1, max_iter=50000).fit_(x_train_norm, y_train)
 
     prob = my_log_reg.predict_(x_test_norm)
-    prediction = prob.copy()
-    prediction[prediction > .5] = 1.0
-    prediction[prediction <= .5] = 0.0
+    prediction = (prob > .5).astype(int)
 
     match = y_test == prediction
     print(f"eval predictions: {np.sum(match) * 100 / len(y_test)}% accurate.\n\
