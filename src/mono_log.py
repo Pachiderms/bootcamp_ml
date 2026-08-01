@@ -35,13 +35,25 @@ def mono_log_():
     height = x_test[:, 1]
     bone_density = x_test[:, 2]
 
-    plt.figure(figsize=(20, 15))
+    fig, axs = plt.subplots(1, 3, figsize=(20, 10))
 
-    plt.scatter(weight, height, c=y_test)
-    plt.scatter(weight, height, c=y_hat, marker ='x', s=40)
+    # Weight vs Height
+    axs[0].scatter(weight, height, c=y_test.ravel())
+    axs[0].scatter(weight, height, c=y_hat.ravel(), marker='x')
+    axs[0].set_xlabel("Weight")
+    axs[0].set_ylabel("Height")
 
-    plt.scatter(weight, bone_density, c=y_test)
-    plt.scatter(weight, bone_density, c=y_hat, marker='x', s=40)
+    # Weight vs Bone Density
+    axs[1].scatter(weight, bone_density, c=y_test.ravel())
+    axs[1].scatter(weight, bone_density, c=y_hat.ravel(), marker='x')
+    axs[1].set_xlabel("Weight")
+    axs[1].set_ylabel("Bone Density")
 
-    plt.scatter(height, bone_density, c=y_test)
-    plt.scatter(height, bone_density, c=y_hat, marker='x', s=40)
+    # Height vs Bone Density
+    axs[2].scatter(height, bone_density, c=y_test.ravel())
+    axs[2].scatter(height, bone_density, c=y_hat.ravel(), marker='x')
+    axs[2].set_xlabel("Height")
+    axs[2].set_ylabel("Bone Density")
+
+    plt.tight_layout()
+    plt.show()
