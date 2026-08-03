@@ -24,10 +24,12 @@ def fit_(x, y, theta, alpha, max_iter):
     
     if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
         or not isinstance(theta, np.ndarray) or not isinstance(alpha, float):
+        print(f'fit type err: {type(x)=} {type(y)=} {type(theta)=} {type(alpha)=}')
         return None
     
     m, n = x.shape
     if y.shape != (m, 1) or theta.shape != (n + 1, 1):
+        print(f'fit shape err: {x.shape=} {y.shape=} {theta.shape=}')
         return None
 
     new_theta = theta.copy()

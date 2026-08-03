@@ -22,7 +22,7 @@ def data_spliter(x, y, proportion):
 
     m = x.shape[0]
     if y.shape != (m, 1):
-        print(f"err {y.shape=} {x.shape=}")
+        print(f"split shape err: {y.shape=} {x.shape=}")
         return None
     
     np.random.seed(0)

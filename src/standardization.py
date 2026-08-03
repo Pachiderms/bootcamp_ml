@@ -12,6 +12,7 @@ def zscore(x):
     """
     
     if not isinstance(x, np.ndarray) or x.size == 0:
+        print(f"zscore type/empty err: {type(x)=} {x.size=}")
         return None
     
     m = x.shape[0]
@@ -43,6 +44,7 @@ def minmax(x):
     """
     
     if not isinstance(x, np.ndarray) or x.size == 0:
+        print(f"minmax type/empty err: {type(x)=} {x.size=}")
         return None
     
     min_val = np.min(x)

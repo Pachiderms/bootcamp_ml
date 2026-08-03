@@ -15,8 +15,12 @@ def simple_gradient(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
-    
+    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
+        print(f"simple_grad type err: {type(x)=} {type(y)=} {type(theta)=}")
+        return None
+
     if x.shape != y.shape or theta.shape != (2, 1):
+        print(f"simple_grad shape err: {x.shape=} {y.shape=} {theta.shape=}")
         return None
     
     m = x.shape[0]
@@ -43,10 +47,12 @@ def gradient(x, y, theta):
         This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
+        print(f"grad type err: {type(x)=} {type(y)=} {type(theta)=}")
         return None
         
     m, n = x.shape
     if y.shape != (m, 1) or theta.shape != (n + 1, 1):
+        print(f"grad shape err: {x.shape=} {y.shape=} {theta.shape=}")
         return None
 
     X = np.hstack((np.ones((m, 1)), x))

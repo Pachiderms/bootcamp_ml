@@ -50,6 +50,7 @@ def plot_with_loss(x, y, theta):
     """
     
     if x.shape[0] != 1 or y.shape[0] != 1 or theta.size != 2:
+        print(f"plot_with_loss shape err: {x.shape=} {y.shape=} {theta.shape=}")
         return None
 
     m = x.shape[0]

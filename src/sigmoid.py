@@ -12,8 +12,10 @@ def sigmoid_(x):
         This function should not raise any Exception.
     """
     if not isinstance(x, np.ndarray):
+        print(f"sigmoid type err: {type(x)=}")
         return None
     if x.shape[1] != 1:
+        print(f"sigmoid shape err: {x.shape=}")
         return None
 
     return 1 / (1 + np.exp(-x)) 
