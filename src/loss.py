@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_vector_pair_any
 
+@check_type_and_shape_vector_pair_any
 def loss_elem_(y, y_hat):
     """
     Description:
@@ -14,13 +16,10 @@ def loss_elem_(y, y_hat):
     Raises:
     This function should not raise any Exception.
     """
-    if y.shape != y_hat.shape:
-        print(f"loss_elem shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    
     J_elem = (y_hat - y) ** 2
     return J_elem
 
+@check_type_and_shape_vector_pair_any
 def loss_simple(y, y_hat):
     """Computes the mean squared error of two non-empty numpy.array, without any for loop.
     The two arrays must have the same dimensions.
@@ -35,20 +34,11 @@ def loss_simple(y, y_hat):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"loss_simple type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.size == 0 or y_hat.size == 0:
-        print(f"loss_simple empty err: {y.size=} {y_hat.size=}")
-        return None
-    if y.shape[0] != y_hat.shape[0]:
-        print(f"loss_simple shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    
     m = y.shape[0]
     mse = np.sum((y_hat - y) ** 2) / (2 * m)
     return mse
 
+@check_type_and_shape_vector_pair_any
 def loss_(y, y_hat):
     """
     Computes the mean squared error of two non-empty numpy.array, without any for loop.
@@ -65,21 +55,12 @@ def loss_(y, y_hat):
         This function should not raise any Exception.
     """
 
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"loss type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.size == 0 or y_hat.size == 0:
-        print(f"loss empty err: {y.size=} {y_hat.size=}")
-        return None
-    if y.shape[0] != y_hat.shape[0]:
-        print(f"loss shape err: {y.shape=} {y_hat.shape=}")
-        return None
-
     m = y.shape[0]
     X = np.squeeze(y)
     Y = np.squeeze(y_hat)
     return np.dot((Y - X), (Y - X)) / (2 * m)
 
+@check_type_and_shape_vector_pair_any
 def mse_(y, y_hat):
     """
     Description:
@@ -93,17 +74,11 @@ def mse_(y, y_hat):
     Raises:
     This function should not raise any Exceptions.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"mse type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"mse shape err: {y.shape=} {y_hat.shape=}")
-        return None
-        
     m = y.shape[0]
     mse = np.sum((y_hat - y) ** 2) / m
     return mse
 
+@check_type_and_shape_vector_pair_any
 def rmse_(y, y_hat):
     """
     Description:
@@ -117,17 +92,11 @@ def rmse_(y, y_hat):
     Raises:
     This function should not raise any Exceptions.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"rmse type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"rmse shape err: {y.shape=} {y_hat.shape=}")
-        return None
-
     m = y.shape[0]
     rmse = np.sqrt(np.sum((y_hat - y) ** 2) / m)
     return rmse
 
+@check_type_and_shape_vector_pair_any
 def mae_(y, y_hat):
     """
     Description:
@@ -141,18 +110,12 @@ def mae_(y, y_hat):
     Raises:
     This function should not raise any Exceptions.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"mae type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"mae shape err: {y.shape=} {y_hat.shape=}")
-        return None
-
     m = y.shape[0]
     mae = np.sum(np.abs(y_hat - y)) / m
     return mae
 
 
+@check_type_and_shape_vector_pair_any
 def r2score_(y, y_hat):
     """
     Description:
@@ -166,13 +129,6 @@ def r2score_(y, y_hat):
     Raises:
     This function should not raise any Exceptions.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"r2score type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"r2score shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    
     ss_res = np.sum((y_hat - y) ** 2)
     ss_tot = np.sum((y - np.mean(y)) ** 2)
     r2score = 1 - (ss_res / ss_tot)

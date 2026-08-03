@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_theta
 
+@check_type_and_shape_theta
 def iterative_l2(theta):
     """Computes the L2 regularization of a non-empty numpy.ndarray, with a for-loop.
     Args:
@@ -10,13 +12,6 @@ def iterative_l2(theta):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(theta, np.ndarray):
-        print(f"it_l2 type err: {type(theta)=}")
-        return None
-    if theta.shape[1] != 1:
-        print(f"it_l2 shape err: {theta.shape=}")
-        return None
-    
     T = theta.copy()
     T[0] = 0
     sum = 0
@@ -24,6 +19,7 @@ def iterative_l2(theta):
         sum = sum + t ** 2
     return sum.item()
     
+@check_type_and_shape_theta
 def l2(theta):
     """Computes the L2 regularization of a non-empty numpy.ndarray, without any for-loop.
     Args:
@@ -34,13 +30,6 @@ def l2(theta):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(theta, np.ndarray):
-            print(f"l2 type err: {type(theta)=}")
-            return None
-    if theta.shape[1] != 1:
-        print(f"l2 shape err: {theta.shape=}")
-        return None
-        
     T = theta.copy()
     T[0] = 0
     return (T.T @ T).item()

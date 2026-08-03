@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_x_theta
 
+@check_type_and_shape_x_theta
 def simple_predict(x, theta):
     """Computes the prediction vector y_hat from two non-empty numpy.array.
     Args:
@@ -13,15 +15,7 @@ def simple_predict(x, theta):
         Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray) or not isinstance(theta, np.ndarray):
-        print(f"simple_pred type err: {type(x)=} {type(theta)=}")
-        return None
-    
     m, n = x.shape
-    if theta.shape != (n + 1, 1):
-        print(f"simple_pred shape err: {x.shape=} {theta.shape=}")
-        return None
-    
     y_hat = np.zeros((m, 1))
     for i in range(n):
         y_hat += x[:, i].reshape(-1, 1) * theta[i + 1]
@@ -29,6 +23,7 @@ def simple_predict(x, theta):
     
     return y_hat
 
+@check_type_and_shape_x_theta
 def predict_(x, theta):
     """Computes the prediction vector y_hat from two non-empty numpy.array.
     Args:
@@ -42,15 +37,7 @@ def predict_(x, theta):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray) or not isinstance(theta, np.ndarray):
-        print(f"pred type err: {type(x)=} {type(theta)=}")
-        return None
-    
     m, n = x.shape
-    if theta.shape != (n + 1, 1):
-        print(f"pred shape err: {x.shape=} {theta.shape=}")
-        return None
-    
     X = np.hstack([np.ones((m, 1)), x])
     y_hat = X @ theta
     

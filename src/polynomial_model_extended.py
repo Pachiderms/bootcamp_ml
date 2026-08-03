@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_polynomial
 
+@check_type_and_shape_polynomial
 def add_polynomial_features(x, power):
     """Add polynomial features to matrix x by raising its columns to every power in the range
     of 1 up to the power given in argument.
@@ -15,11 +17,6 @@ def add_polynomial_features(x, power):
     Raises:
     This function should not raise any Exception.
     """
-    
-    if not isinstance(x, np.ndarray) or not isinstance(power, int):
-        print(f"qdd_p_features type err: {type(x)} {type(power)}")
-        return None
-    
     m, n = x.shape
     P = [np.power(x, pow) for pow in range(1, power + 1)]
     X = np.concatenate(P,  axis=1)

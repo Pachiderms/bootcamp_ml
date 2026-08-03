@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_vector_any
 
+@check_type_and_shape_vector_any
 def zscore(x):
     """Computes the normalized version of a non-empty numpy.ndarray using the z-score standardization.
     Args:
@@ -10,10 +12,6 @@ def zscore(x):
     Raises:
     This function shouldn't raise any Exception.
     """
-    
-    if not isinstance(x, np.ndarray) or x.size == 0:
-        print(f"zscore type/empty err: {type(x)=} {x.size=}")
-        return None
     
     m = x.shape[0]
     mean = 0
@@ -32,6 +30,7 @@ def zscore(x):
     
     return x_normalized
 
+@check_type_and_shape_vector_any
 def minmax(x):
     """Computes the normalized version of a non-empty numpy.ndarray using the min-max standardization.
     Args:
@@ -42,10 +41,6 @@ def minmax(x):
     Raises:
     This function shouldn't raise any Exception.
     """
-    
-    if not isinstance(x, np.ndarray) or x.size == 0:
-        print(f"minmax type/empty err: {type(x)=} {x.size=}")
-        return None
     
     min_val = np.min(x)
     max_val = np.max(x)

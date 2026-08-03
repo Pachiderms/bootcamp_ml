@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_vector
 
+@check_type_and_shape_vector
 def sigmoid_(x):
     """
     Compute the sigmoid of a vector.
@@ -11,12 +13,5 @@ def sigmoid_(x):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray):
-        print(f"sigmoid type err: {type(x)=}")
-        return None
-    if x.shape[1] != 1:
-        print(f"sigmoid shape err: {x.shape=}")
-        return None
-
     return 1 / (1 + np.exp(-x)) 
     

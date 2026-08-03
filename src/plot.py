@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 from src.prediction import predict_
 import numpy as np
+from src.decorators import check_type_and_shape_plot
 
 class MyPloter():
     def __init__(self, sp=(1, 1), fs=(20, 5)):
@@ -37,6 +38,7 @@ def plot(x, y, theta):
     plt.plot(x, y_hat, color='orange')
     plt.show()
     
+@check_type_and_shape_plot
 def plot_with_loss(x, y, theta):
     """Plot the data and prediction line from three non-empty numpy.ndarray.
     Args:
@@ -48,13 +50,7 @@ def plot_with_loss(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
-    
-    if x.shape[0] != 1 or y.shape[0] != 1 or theta.size != 2:
-        print(f"plot_with_loss shape err: {x.shape=} {y.shape=} {theta.shape=}")
-        return None
-
     m = x.shape[0]
-    print(m)
     y_hat = predict_(x, theta)
     fig = plt.figure()
     plt.plot(x, y, marker='o')

@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from src.prediction import predict_
 from src.gradient import gradient
 from src.loss import loss_elem_, loss_, mse_
+from src.decorators import check_type_and_shape_fit_method, check_type_and_shape_polynomial
 
 class MyLinearRegression():
     """
@@ -15,17 +16,8 @@ class MyLinearRegression():
         self.thetas = np.asarray(thetas, dtype=float).reshape(-1, 1)
         self.costs = []
         
+    @check_type_and_shape_fit_method
     def fit_(self, x, y):
-        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
-            or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
-            print(f'fit type err: {type(x)=} {type(y)=} {type(self.thetas)=} {type(self.alpha)=}')
-            return None
-            
-        m, n = x.shape
-        if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
-            print(f'fit shape err: {x.shape=} {y.shape=} {self.thetas.shape=}')
-            return None
-
         self.costs.clear()
         
         new_theta = self.thetas.copy()
@@ -67,6 +59,7 @@ def add_polynomial_features_mult(x, degree):
         for i in range(x.shape[1])
     ])
 
+@check_type_and_shape_polynomial
 def add_polynomial_features(x, power):
     """Add polynomial features to vector x by raising its values up to the power given in argument.
     Args:
@@ -80,15 +73,6 @@ def add_polynomial_features(x, power):
     Raises:
         This function should not raise any Exception.
     """
-    
-    if not isinstance(x, np.ndarray) or not isinstance(power, int):
-        print(f"poly type err: {type(x)=} {type(power)=}")
-        return None
-    
-    if x.shape[1] != 1:
-        print(f"poly shape err: {x.shape=}")
-        return None
-    
     e = np.arange(1, power + 1)
-    
+
     return(x ** e)

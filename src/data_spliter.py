@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_split
 
+@check_type_and_shape_split
 def data_spliter(x, y, proportion):
     """Shuffles and splits the dataset (given by x and y) into a training and a test set,
     while respecting the given proportion of examples to be kept in the training set.
@@ -16,15 +18,8 @@ def data_spliter(x, y, proportion):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray):
-        print(f"split type err: {type(x)=} {type(y)=}")
-        return None
-
     m = x.shape[0]
-    if y.shape != (m, 1):
-        print(f"split shape err: {y.shape=} {x.shape=}")
-        return None
-    
+
     np.random.seed(0)
     np.random.shuffle(x)
     np.random.seed(0)

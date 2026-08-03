@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_confusion
 
+@check_type_and_shape_confusion
 def confusion_matrix_(y_true, y_hat, labels=None):
     """
     Compute confusion matrix to evaluate the accuracy of a classification.
@@ -14,14 +16,6 @@ def confusion_matrix_(y_true, y_hat, labels=None):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(y_true, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"cf matrix type err: {type(y_true)=} {type(y_hat)=}")
-        return None
-    
-    if y_true.shape != y_hat.shape:
-        print(f"cf matrix shape err: {y_true.shape=} {y_hat.shape=}")
-        return None
-
     l = np.append(y_true, y_hat).reshape(-1, 1)
     labels = labels or l
     u_labels = np.unique_counts(labels).values.reshape(-1, 1)

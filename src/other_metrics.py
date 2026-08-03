@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_vector_pair_any
 
+@check_type_and_shape_vector_pair_any
 def accuracy_score_(y, y_hat):
     """
     Compute the accuracy score.
@@ -12,18 +14,9 @@ def accuracy_score_(y, y_hat):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"accuracy type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"accuracy shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    if len(y) == 0:
-        print(f"accuracy empty err: {len(y)=}")
-        return None
-
     return float(np.mean(y == y_hat))
 
+@check_type_and_shape_vector_pair_any
 def precision_score_(y, y_hat, pos_label=1):
     """
     Compute the precision score.
@@ -37,15 +30,6 @@ def precision_score_(y, y_hat, pos_label=1):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"precision type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"precision shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    if len(y) == 0:
-        print(f"precision empty err: {len(y)=}")
-        return None
     if pos_label not in y:
         print(f"precision label err: {pos_label=} {y=}")
         return None
@@ -54,6 +38,7 @@ def precision_score_(y, y_hat, pos_label=1):
     fp = np.sum((y != pos_label) & (y_hat == pos_label))
     return float(tp / (tp + fp))
     
+@check_type_and_shape_vector_pair_any
 def recall_score_(y, y_hat, pos_label=1):
     """
     Compute the recall score.
@@ -67,15 +52,6 @@ def recall_score_(y, y_hat, pos_label=1):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"recall type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"recall shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    if len(y) == 0:
-        print(f"recall empty err: {len(y)=}")
-        return None
     if pos_label not in y:
         print(f"recall label err: {pos_label=} {y=}")
         return None
@@ -84,6 +60,7 @@ def recall_score_(y, y_hat, pos_label=1):
     fn = np.sum((y == pos_label) & (y_hat != pos_label))
     return float(tp / (tp + fn))
 
+@check_type_and_shape_vector_pair_any
 def f1_score_(y, y_hat, pos_label=1):
     """
     Compute the f1 score.
@@ -97,19 +74,10 @@ def f1_score_(y, y_hat, pos_label=1):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"f1 type err: {type(y)=} {type(y_hat)=}")
-        return None
-    if y.shape != y_hat.shape:
-        print(f"f1 shape err: {y.shape=} {y_hat.shape=}")
-        return None
-    if len(y) == 0:
-        print(f"f1 empty err: {len(y)=}")
-        return None
     if pos_label not in y:
         print(f"f1 label err: {pos_label=} {y=}")
         return None
-    
+
     precision = precision_score_(y, y_hat, pos_label)
     recall = recall_score_(y, y_hat, pos_label)
     return float((2 * precision * recall) / (precision + recall))

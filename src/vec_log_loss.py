@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_vector_pair
 
+@check_type_and_shape_vector_pair
 def vec_log_loss_(y, y_hat, eps=1e-15):
     """
     Computes the logistic loss value.
@@ -13,14 +15,7 @@ def vec_log_loss_(y, y_hat, eps=1e-15):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-        print(f"vec_log_loss type err: {type(y)=} {type(y_hat)=}")
-        return None
     m = y.shape[0]
-    if (y.shape, y_hat.shape) != ((m, 1), (m, 1)):
-        print(f"vec_log_loss shape err: {y.shape=} {y_hat.shape=}")
-        return None
-
     np.clip(y_hat, eps, 1 - eps, out=y_hat)
     sum = (np.dot(y.T, np.log(y_hat)) + np.dot((np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)))
     return -(1 / m) * sum.item()

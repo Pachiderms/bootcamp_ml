@@ -1,5 +1,7 @@
 import numpy as np
+from src.decorators import check_type_and_shape_xy_theta
 
+@check_type_and_shape_xy_theta
 def simple_gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.arrays, with a for-loop.
     The three arrays must have compatible shapes.
@@ -15,14 +17,6 @@ def simple_gradient(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
-        print(f"simple_grad type err: {type(x)=} {type(y)=} {type(theta)=}")
-        return None
-
-    if x.shape != y.shape or theta.shape != (2, 1):
-        print(f"simple_grad shape err: {x.shape=} {y.shape=} {theta.shape=}")
-        return None
-    
     m = x.shape[0]
     grad = np.zeros((2, 1))
     grad[0] = np.sum(theta[0] + theta[1] * x - y) / m
@@ -30,6 +24,7 @@ def simple_gradient(x, y, theta):
     
     return grad
 
+@check_type_and_shape_xy_theta
 def gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.array, without any for-loop.
     The three arrays must have the compatible dimensions.
@@ -46,15 +41,7 @@ def gradient(x, y, theta):
     Raises:
         This function should not raise any Exception.
     """
-    if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) or not isinstance(theta, np.ndarray):
-        print(f"grad type err: {type(x)=} {type(y)=} {type(theta)=}")
-        return None
-        
     m, n = x.shape
-    if y.shape != (m, 1) or theta.shape != (n + 1, 1):
-        print(f"grad shape err: {x.shape=} {y.shape=} {theta.shape=}")
-        return None
-
     X = np.hstack((np.ones((m, 1)), x))
     
     errors = X @ theta - y

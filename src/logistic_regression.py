@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 from src.log_pred import logistic_predict_
 from src.log_gradient import log_gradient
 from src.vec_log_loss import vec_log_loss_
+from src.decorators import check_type_and_shape_fit_method, check_type_and_shape_vector_pair_any
 
 class MyLogisticRegression():
     """
@@ -15,17 +16,8 @@ class MyLogisticRegression():
         self.thetas = np.asarray(thetas, dtype=float).reshape(-1, 1)
         self.costs = []
         
+    @check_type_and_shape_fit_method
     def fit_(self, x, y):
-        if not isinstance(x, np.ndarray) or not isinstance(y, np.ndarray) \
-            or not isinstance(self.thetas, np.ndarray) or not isinstance(self.alpha, float):
-            print(f'fit type err: {type(x)=} {type(y)=} {type(self.thetas)=} {type(self.alpha)=}')
-            return None
-            
-        m, n = x.shape
-        if y.shape != (m, 1) or self.thetas.shape != (n + 1, 1):
-            print(f'fit shape err: {x.shape=} {y.shape=} {self.thetas.shape=}')
-            return None
-
         self.costs.clear()
         
         new_theta = self.thetas.copy()
@@ -52,26 +44,16 @@ class MyLogisticRegression():
     def predict_(self, x):
         return logistic_predict_(x, self.thetas)
     
+    @check_type_and_shape_vector_pair_any
     def loss_elem_(self, y, y_hat):
-        if y.shape[0] != y_hat.shape[0]:
-            print(f"log_loss_elem shape err: {y.shape=} {y_hat.shape=}")
-            return None
-        
         J_elem = (y_hat - y) ** 2
         return J_elem
-    
-    def loss_(self, y, y_hat):
-        return vec_log_loss_(y, y_hat)    
 
+    def loss_(self, y, y_hat):
+        return vec_log_loss_(y, y_hat)
+
+    @check_type_and_shape_vector_pair_any
     def mse_(self, y, y_hat):
-        if not isinstance(y, np.ndarray) or not isinstance(y_hat, np.ndarray):
-            print(f"mse type err: {type(y)=} {type(y_hat)=}")
-            return None
-        
-        if y.shape != y_hat.shape:
-            print(f"mse shape err: {y.shape=} {y_hat.shape=}")
-            return None
-        
         m = y.shape[0]
         mse = np.sum((y_hat - y) ** 2) / m
         return mse
