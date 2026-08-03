@@ -24,7 +24,7 @@ def mono_log_(zipcode=0):
     Returns:
         Nothing.
     """
-    print(f"trainin on {zipcode=}")
+    print(f"training on {zipcode=}")
     df1 = pd.read_csv("../attachments/solar_system_census.csv")
     df2 = pd.read_csv("../attachments/solar_system_census_planets.csv")
 
@@ -55,21 +55,21 @@ def mono_log_(zipcode=0):
     height = x_test[:, 1]
     bone_density = x_test[:, 2]
 
-    fig, axs = plt.subplots(1, 3, figsize=(20, 10))
+    fig, axs = plt.subplots(1, 3, figsize=(18, 6))
 
-    axs[0].scatter(weight, height, c=y_test.ravel())
+    axs[0].scatter(weight, height, c=y_test.ravel(), alpha=0.4)
     axs[0].scatter(weight, height, c=prediction.ravel(), marker='x')
     axs[0].set_xlabel("Weight")
     axs[0].set_ylabel("Height")
     axs[0].set_title("Height vs Weight")
 
-    axs[1].scatter(weight, bone_density, c=y_test.ravel())
+    axs[1].scatter(weight, bone_density, c=y_test.ravel(), alpha=0.4)
     axs[1].scatter(weight, bone_density, c=prediction.ravel(), marker='x')
     axs[1].set_xlabel("Weight")
     axs[1].set_ylabel("Bone Density")
     axs[1].set_title("Weight vs Bone Density")
 
-    axs[2].scatter(height, bone_density, c=y_test.ravel())
+    axs[2].scatter(height, bone_density, c=y_test.ravel(), alpha=0.4)
     axs[2].scatter(height, bone_density, c=prediction.ravel(), marker='x')
     axs[2].set_xlabel("Height")
     axs[2].set_ylabel("Bone Density")
