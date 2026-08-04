@@ -41,7 +41,7 @@ def gradient(x, y, theta):
     Raises:
         This function should not raise any Exception.
     """
-    m, n = x.shape
+    m = x.shape[0]
     X = np.hstack((np.ones((m, 1)), x))
     
     errors = X @ theta - y
