@@ -32,13 +32,13 @@ class MyLogisticRegression:
         new_theta = self.thetas.copy()
         for _ in range(self.max_iter):
             y_hat = logistic_predict_(x, new_theta)
-            current_loss = self.loss_(y, y_hat)
+            current_loss = self.loss_(y, y_hat, new_theta)
             self.costs.append(current_loss)
 
             grad = (
                 log_gradient(x, y, new_theta)
                 if self.penality == None
-                else vec_reg_logistic_grad(y, x, self.thetas, self.lambda_)
+                else vec_reg_logistic_grad(y, x, new_theta, self.lambda_)
             )
             new_theta = new_theta - self.alpha * grad
 
@@ -63,11 +63,11 @@ class MyLogisticRegression:
         J_elem = (y_hat - y) ** 2
         return J_elem
 
-    def loss_(self, y, y_hat):
+    def loss_(self, y, y_hat, theta):
         return (
             vec_log_loss_(y, y_hat)
             if self.penality == None
-            else reg_log_loss_(y, y_hat, self.thetas, self.lambda_)
+            else reg_log_loss_(y, y_hat, theta, self.lambda_)
         )
 
     @check_type_and_shape_vector_pair_any

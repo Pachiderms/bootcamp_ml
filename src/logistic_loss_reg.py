@@ -19,7 +19,9 @@ def reg_log_loss_(y, y_hat, theta, lambda_):
     Raises:
     This function should not raise any Exception.
     """
-    m = y.shape[0]
+    m, _ = y.shape
+    eps = 1e-15
+    np.clip(y_hat, eps, 1 - eps, out=y_hat)
     return (
         (-1 / m) * np.sum(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat)).item()
     ) + ((lambda_ / (2 * m)) * l2(theta))

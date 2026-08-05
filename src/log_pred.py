@@ -16,7 +16,7 @@ def logistic_predict_(x, theta):
     Raises:
         This function should not raise any Exception.
     """
-    m, n = x.shape
+    m, _ = x.shape
     X = np.hstack([np.ones((m, 1)), x])
     vec = np.dot(X, theta)
     return sigmoid_(vec)

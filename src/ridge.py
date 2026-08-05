@@ -40,9 +40,8 @@ class MyRidge(MyLR):
             self.costs.append(current_loss)
 
             grad = vec_reg_linear_grad(y, x, new_theta, self.lambda_)
-            new_theta = new_theta - self.alpha * grad
+            self.thetas = new_theta - self.alpha * grad
 
-        self.thetas = new_theta
         return self
 
     def loss_(self, y, y_hat):
