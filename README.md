@@ -52,7 +52,7 @@ Implémentation du premier modèle prédictif supervisé.
   $$J(\theta) = {1}/{2m} \sum_{i=1}^{m} (\hat{y}^{(i)} - y^{(i)})^2$$
 - **Optimisation par Descente de Gradient** :
   Calcul du vecteur de gradient et mise à jour itérative des paramètres :
-  $$	\theta = \theta -  \alpha {X}^{'T}({X}^{'} \cdot \theta - Y)$$
+  $$\theta = \theta - \alpha {X}^{'T}({X}^{'} \cdot \theta - Y)$$
 - **Évaluation du Modèle** :
   - Coefficient de détermination ($R^2$ Score) pour mesurer la qualité de l'ajustement.
   - Erreur Quadratique Moyenne (RMSE).
