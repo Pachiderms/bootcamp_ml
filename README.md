@@ -1,5 +1,4 @@
-# Résumé Complet du Projet : Bootcamp ML (Pachiderms / 42 Machine Learning)
-
+# ML Bootcamp
 Ce projet est une formation pratique et rigoureuse dédiée à l'apprentissage des fondamentaux du Machine Learning (ML), inspirée du cursus de l'École 42.
 
 L'objectif principal de ce bootcamp est de comprendre, concevoir et implémenter **from scratch** les algorithmes essentiels du Machine Learning en Python sous forme vectorisée (via `NumPy` et `Pandas`), sans recourir à des bibliothèques clés en main telles que `Scikit-Learn`.
