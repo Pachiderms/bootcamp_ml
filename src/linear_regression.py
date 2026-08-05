@@ -45,6 +45,7 @@ class MyLinearRegression:
         plt.plot(self.costs, label="learning curve")
         plt.legend()
         plt.show()
+        
 
     def predict_(self, x):
         return predict_(x, self.thetas)

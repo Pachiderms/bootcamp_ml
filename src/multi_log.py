@@ -81,3 +81,4 @@ def one_vs_all():
     axs[2].set_title("Height vs Bone Density")
 
     plt.show()
+    

@@ -36,11 +36,14 @@ def plot(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
+    if x.ndim != 1 or y.ndim != 1 or theta.shape != (2, 1):
+        return
     y_hat = predict_(x, theta)
     fig = plt.figure()
     plt.plot(x, y, marker="o")
     plt.plot(x, y_hat, color="orange")
     plt.show()
+    
 
 
 @check_type_and_shape_plot
@@ -55,6 +58,7 @@ def plot_with_loss(x, y, theta):
     Raises:
     This function should not raise any Exception.
     """
+    theta = theta.reshape((-1, 1))
     m = x.shape[0]
     y_hat = predict_(x, theta)
     fig = plt.figure()
@@ -63,3 +67,4 @@ def plot_with_loss(x, y, theta):
     for i in range(m):
         plt.plot([x[i], x[i]], [y[i], y_hat[i]], linestyle="dashed", color="red")
     plt.show()
+    

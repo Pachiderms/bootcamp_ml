@@ -141,7 +141,11 @@ source venv/bin/activate  # Sur Linux/macOS
 ```
 
 ### 3. Exécuter un Module / Test
-Chaque sous-dossier contient ses propres jupyter notebook de démonstration.
+Chaque sous-dossier contient ses propres jupyter notebook de démonstration et un fichier test utilisable avec pytest.
+```bash
+cd tests/
+pytest {file_name} # Ou pytest sans argument pour run tous les tests en une fois
+```
 
 ---
 
@@ -170,6 +174,9 @@ Voici la liste des bibliothèques utilisées dans ce projet avec les liens vers 
 - 📊 **Matplotlib** (Visualisation graphique 2D/3D) :
   - [Documentation officielle Matplotlib](https://matplotlib.org/stable/contents.html)
   - [Galerie d'exemples Matplotlib](https://matplotlib.org/stable/gallery/index.html)
+
+- ✅ **Pytest** (Automatisation des tests):
+  - [Documentation officielle Pytest](https://docs.pytest.org/en/stable/)
 
 - 🧠 **Ressources Théoriques Complémentaires** (Pour référence ou validation des implémentations) :
   - [What is ML? Quick introduction to ML algorithms use cases](https://www.ibm.com/fr-fr/think/topics/machine-learning)

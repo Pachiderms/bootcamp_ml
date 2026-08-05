@@ -238,7 +238,7 @@ def check_type_and_shape_plot(func):
         ):
             _debug_print(func.__name__, "type", x=type(x), y=type(y), theta=type(theta))
             return None
-        if x.shape[0] != y.shape[0] or theta.size != 2:
+        if x.shape[0] != y.shape[0] or x.ndim != 1 or y.ndim != 1 or theta.ndim != 2:
             _debug_print(
                 func.__name__, "shape", x=x.shape, y=y.shape, theta=theta.shape
             )
