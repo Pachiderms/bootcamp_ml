@@ -89,5 +89,7 @@ def test_log_gradient_and_training():
     ), f"{model.thetas=}"
 
     y_hat2 = model.predict_(X)
-    assert np.allclose(y_hat2, np.array([[0.57606717], [0.68599807], [0.06562156]]), rtol=1e-3)
+    assert np.allclose(
+        y_hat2, np.array([[0.57606717], [0.68599807], [0.06562156]]), rtol=1e-3
+    )
     assert math.isclose(model.loss_(Y, y_hat2), 1.4779126923052268, rel_tol=1e-4)

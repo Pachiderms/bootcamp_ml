@@ -43,7 +43,6 @@ def plot(x, y, theta):
     plt.plot(x, y, marker="o")
     plt.plot(x, y_hat, color="orange")
     plt.show()
-    
 
 
 @check_type_and_shape_plot
@@ -67,4 +66,3 @@ def plot_with_loss(x, y, theta):
     for i in range(m):
         plt.plot([x[i], x[i]], [y[i], y_hat[i]], linestyle="dashed", color="red")
     plt.show()
-    

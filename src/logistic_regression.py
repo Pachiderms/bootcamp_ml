@@ -54,7 +54,6 @@ class MyLogisticRegression:
         plt.plot(self.costs, label="learning curve")
         plt.legend()
         plt.show()
-        
 
     def predict_(self, x):
         return logistic_predict_(x, self.thetas)

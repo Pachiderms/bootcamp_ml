@@ -79,4 +79,3 @@ def mono_log_(zipcode=0):
     axs[2].set_title("Height vs Bone Density")
 
     plt.show()
-    
