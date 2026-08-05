@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_x_theta
 
+
 @check_type_and_shape_x_theta
 def simple_predict(x, theta):
     """Computes the prediction vector y_hat from two non-empty numpy.array.
@@ -20,8 +21,9 @@ def simple_predict(x, theta):
     for i in range(n):
         y_hat += x[:, i].reshape(-1, 1) * theta[i + 1]
     y_hat += theta[0]
-    
+
     return y_hat
+
 
 @check_type_and_shape_x_theta
 def predict_(x, theta):
@@ -40,5 +42,5 @@ def predict_(x, theta):
     m, n = x.shape
     X = np.hstack([np.ones((m, 1)), x])
     y_hat = X @ theta
-    
+
     return y_hat

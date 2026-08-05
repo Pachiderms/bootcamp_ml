@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_vector_pair
 
+
 @check_type_and_shape_vector_pair
 def vec_log_loss_(y, y_hat, eps=1e-15):
     """
@@ -17,5 +18,7 @@ def vec_log_loss_(y, y_hat, eps=1e-15):
     """
     m = y.shape[0]
     np.clip(y_hat, eps, 1 - eps, out=y_hat)
-    sum = (np.dot(y.T, np.log(y_hat)) + np.dot((np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)))
+    sum = np.dot(y.T, np.log(y_hat)) + np.dot(
+        (np.ones((m, 1)) - y).T, np.log(np.ones((m, 1)) - y_hat)
+    )
     return -(1 / m) * sum.item()

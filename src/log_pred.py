@@ -2,6 +2,7 @@ import numpy as np
 from src.sigmoid import sigmoid_
 from src.decorators import check_type_and_shape_x_theta
 
+
 @check_type_and_shape_x_theta
 def logistic_predict_(x, theta):
     """Computes the vector of prediction y_hat from two non-empty numpy.ndarray.

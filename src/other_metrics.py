@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_vector_pair_any
 
+
 @check_type_and_shape_vector_pair_any
 def accuracy_score_(y, y_hat):
     """
@@ -15,6 +16,7 @@ def accuracy_score_(y, y_hat):
     This function should not raise any Exception.
     """
     return float(np.mean(y == y_hat))
+
 
 @check_type_and_shape_vector_pair_any
 def precision_score_(y, y_hat, pos_label=1):
@@ -37,7 +39,8 @@ def precision_score_(y, y_hat, pos_label=1):
     tp = np.sum((y == pos_label) & (y_hat == pos_label))
     fp = np.sum((y != pos_label) & (y_hat == pos_label))
     return float(tp / (tp + fp))
-    
+
+
 @check_type_and_shape_vector_pair_any
 def recall_score_(y, y_hat, pos_label=1):
     """
@@ -59,6 +62,7 @@ def recall_score_(y, y_hat, pos_label=1):
     tp = np.sum((y == pos_label) & (y_hat == pos_label))
     fn = np.sum((y == pos_label) & (y_hat != pos_label))
     return float(tp / (tp + fn))
+
 
 @check_type_and_shape_vector_pair_any
 def f1_score_(y, y_hat, pos_label=1):

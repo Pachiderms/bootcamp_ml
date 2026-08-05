@@ -2,6 +2,7 @@ import numpy as np
 from src.prediction import predict_
 from src.decorators import check_type_and_shape_reg_gradient
 
+
 @check_type_and_shape_reg_gradient
 def reg_linear_grad(y, x, theta, lambda_):
     """Computes the regularized linear gradient of three non-empty numpy.ndarray,
@@ -30,9 +31,9 @@ def reg_linear_grad(y, x, theta, lambda_):
 
         for j in range(n):
             grad[j + 1, 0] += error * x[i, j]
-    
+
     for j in range(1, n + 1):
-                grad[j, 0] += lambda_ * theta[j, 0]
+        grad[j, 0] += lambda_ * theta[j, 0]
 
     grad /= m
 
@@ -58,10 +59,10 @@ def vec_reg_linear_grad(y, x, theta, lambda_):
     """
     m = x.shape[0]
     X = np.hstack((np.ones((m, 1)), x))
-        
+
     hx = X @ theta
     Theta = theta.copy()
     Theta[0] = 0
-    grad = (X.T @ (hx - y) +  + (lambda_ * Theta)) / m
-        
+    grad = (X.T @ (hx - y) + +(lambda_ * Theta)) / m
+
     return grad

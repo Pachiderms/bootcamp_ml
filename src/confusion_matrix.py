@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_confusion
 
+
 @check_type_and_shape_confusion
 def confusion_matrix_(y_true, y_hat, labels=None):
     """
@@ -21,11 +22,11 @@ def confusion_matrix_(y_true, y_hat, labels=None):
     u_labels = np.unique_counts(labels).values.reshape(-1, 1)
     m, _ = u_labels.shape
     cf_m = np.zeros((m, m))
-    
+
     for i, label_1 in enumerate(u_labels):
         for j, label_2 in enumerate(u_labels):
             true = (y_true == label_1).astype(int)
             pred = (y_hat == label_2).astype(int)
-            cf_m[i, j] = np.sum((true == pred) & (true == 1)) 
-    
+            cf_m[i, j] = np.sum((true == pred) & (true == 1))
+
     return cf_m

@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_xy_theta
 
+
 @check_type_and_shape_xy_theta
 def simple_gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.arrays, with a for-loop.
@@ -21,8 +22,9 @@ def simple_gradient(x, y, theta):
     grad = np.zeros((2, 1))
     grad[0] = np.sum(theta[0] + theta[1] * x - y) / m
     grad[1] = np.sum((theta[0] + theta[1] * x - y) * x) / m
-    
+
     return grad
+
 
 @check_type_and_shape_xy_theta
 def gradient(x, y, theta):
@@ -43,8 +45,8 @@ def gradient(x, y, theta):
     """
     m = x.shape[0]
     X = np.hstack((np.ones((m, 1)), x))
-    
+
     errors = X @ theta - y
     grad = X.T @ errors / m
-    
+
     return grad

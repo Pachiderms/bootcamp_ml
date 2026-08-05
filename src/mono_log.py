@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from src.logistic_regression import MyLogisticRegression as MyLR
 
+
 def mono_log_(zipcode=0):
     """
     Description:
@@ -28,12 +29,12 @@ def mono_log_(zipcode=0):
     df1 = pd.read_csv("../attachments/solar_system_census.csv")
     df2 = pd.read_csv("../attachments/solar_system_census_planets.csv")
 
-    df = pd.concat([df1, df2['Origin']], axis=1)
+    df = pd.concat([df1, df2["Origin"]], axis=1)
 
     X = np.array(df.iloc[:, 1:4])
-    Y = np.array(df['Origin']).reshape(-1, 1)
+    Y = np.array(df["Origin"]).reshape(-1, 1)
 
-    (x_train, x_test, y_train_full, y_test_full) = data_spliter(X, Y, 0.8)
+    x_train, x_test, y_train_full, y_test_full = data_spliter(X, Y, 0.8)
     y_train = (y_train_full == zipcode).astype(int)
     y_test = (y_test_full == zipcode).astype(int)
     train_min = x_train.min(axis=0)
@@ -42,10 +43,12 @@ def mono_log_(zipcode=0):
     x_train_norm = (x_train - train_min) / (train_max - train_min)
     x_test_norm = (x_test - train_min) / (train_max - train_min)
 
-    my_log_reg = MyLR(thetas=np.ones((x_train.shape[1] + 1, 1)), alpha=1e-1, max_iter=50000).fit_(x_train_norm, y_train)
+    my_log_reg = MyLR(
+        thetas=np.ones((x_train.shape[1] + 1, 1)), alpha=1e-1, max_iter=50000
+    ).fit_(x_train_norm, y_train)
 
     prob = my_log_reg.predict_(x_test_norm)
-    prediction = (prob > .5).astype(int)
+    prediction = (prob > 0.5).astype(int)
 
     match = y_test == prediction
     print(f"eval predictions: {np.sum(match) * 100 / len(y_test)}% accurate.\n\
@@ -58,19 +61,19 @@ def mono_log_(zipcode=0):
     fig, axs = plt.subplots(1, 3, figsize=(18, 6))
 
     axs[0].scatter(weight, height, c=y_test.ravel(), alpha=0.4)
-    axs[0].scatter(weight, height, c=prediction.ravel(), marker='x')
+    axs[0].scatter(weight, height, c=prediction.ravel(), marker="x")
     axs[0].set_xlabel("Weight")
     axs[0].set_ylabel("Height")
     axs[0].set_title("Height vs Weight")
 
     axs[1].scatter(weight, bone_density, c=y_test.ravel(), alpha=0.4)
-    axs[1].scatter(weight, bone_density, c=prediction.ravel(), marker='x')
+    axs[1].scatter(weight, bone_density, c=prediction.ravel(), marker="x")
     axs[1].set_xlabel("Weight")
     axs[1].set_ylabel("Bone Density")
     axs[1].set_title("Weight vs Bone Density")
 
     axs[2].scatter(height, bone_density, c=y_test.ravel(), alpha=0.4)
-    axs[2].scatter(height, bone_density, c=prediction.ravel(), marker='x')
+    axs[2].scatter(height, bone_density, c=prediction.ravel(), marker="x")
     axs[2].set_xlabel("Height")
     axs[2].set_ylabel("Bone Density")
     axs[2].set_title("Height vs Bone Density")

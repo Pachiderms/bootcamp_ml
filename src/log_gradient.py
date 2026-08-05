@@ -2,6 +2,7 @@ import numpy as np
 from src.log_pred import logistic_predict_
 from src.decorators import check_type_and_shape_xy_theta
 
+
 @check_type_and_shape_xy_theta
 def log_gradient(x, y, theta):
     """Computes a gradient vector from three non-empty numpy.ndarray, with a for-loop. The three arrays must have compatibl
@@ -20,4 +21,4 @@ def log_gradient(x, y, theta):
     X = np.hstack([np.ones((m, 1)), x])
     hx = logistic_predict_(x, theta)
 
-    return (np.dot(X.T, (hx - y)) / m)
+    return np.dot(X.T, (hx - y)) / m

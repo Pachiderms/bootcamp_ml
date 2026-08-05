@@ -2,6 +2,7 @@ import numpy as np
 from src.log_pred import logistic_predict_
 from src.decorators import check_type_and_shape_reg_gradient
 
+
 @check_type_and_shape_reg_gradient
 def reg_logistic_grad(y, x, theta, lambda_):
     """Computes the regularized logistic gradient of three non-empty numpy.ndarray, with two for-loops.
@@ -29,13 +30,14 @@ def reg_logistic_grad(y, x, theta, lambda_):
 
         for j in range(n):
             grad[j + 1, 0] += error * x[i, j]
-    
+
     for j in range(1, n + 1):
-                grad[j, 0] += lambda_ * theta[j, 0]
+        grad[j, 0] += lambda_ * theta[j, 0]
 
     grad /= m
 
     return grad
+
 
 @check_type_and_shape_reg_gradient
 def vec_reg_logistic_grad(y, x, theta, lambda_):
@@ -59,5 +61,5 @@ def vec_reg_logistic_grad(y, x, theta, lambda_):
     Theta = theta.copy()
     Theta[0] = 0
     grad = (X.T @ (hx - y) + (lambda_ * Theta)) / m
-    
+
     return grad

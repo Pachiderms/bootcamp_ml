@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_vector
 
+
 @check_type_and_shape_vector
 def sigmoid_(x):
     """
@@ -13,5 +14,4 @@ def sigmoid_(x):
     Raises:
         This function should not raise any Exception.
     """
-    return 1 / (1 + np.exp(-x)) 
-    
+    return 1 / (1 + np.exp(-x))

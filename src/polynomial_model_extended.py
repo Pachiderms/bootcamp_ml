@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_polynomial
 
+
 @check_type_and_shape_polynomial
 def add_polynomial_features(x, power):
     """Add polynomial features to matrix x by raising its columns to every power in the range
@@ -19,5 +20,5 @@ def add_polynomial_features(x, power):
     """
     m, n = x.shape
     P = [np.power(x, pow) for pow in range(1, power + 1)]
-    X = np.concatenate(P,  axis=1)
-    return(X)
+    X = np.concatenate(P, axis=1)
+    return X

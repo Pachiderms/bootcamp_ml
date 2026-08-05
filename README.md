@@ -26,6 +26,7 @@ L'objectif principal de ce bootcamp est de comprendre, concevoir et implémenter
 Le projet s'articule autour d'une approche progressive par la pratique (*learning by doing*). Chaque module (ou "Jour") introduit de nouveaux concepts mathématiques et algorithmiques que l'étudiant doit traduire en classes et méthodes Python réutilisables.
 
 ### Principes Clés :
+- **Préparation de données** : Découpage des dataset en $K$ sous-ensembles (folds) pour évaluer la capacité de généralisation sans biais.
 - **Implémentation *From Scratch*** : Reconstruction complète de la structure des modèles (`fit`, `predict`, `loss`, `gradient`).
 - **Vectorisation Systématique** : Utilisation exclusive des opérations matricielles NumPy pour maximiser les performances computationnelles (interdiction des boucles `for` sur les échantillons).
 - **Rigueur Mathématique** : Calcul explicite des gradients, des dérivées partielles et des fonctions de coût.
@@ -94,10 +95,6 @@ Passage des problèmes de régression aux problèmes de classification binaire.
   - Prédiction de la classe finale via $ arg\max_k P(y=k|X)$.
 - **Validation Croisée (K-Fold Cross-Validation)** :
   - Implémentation du découpage du dataset en $K$ sous-ensembles (folds) pour évaluer la capacité de généralisation sans biais.
-- **Bases des Réseaux de Neurones** :
-  - Concepts du Perceptron simple et multi-couches (MLP).
-  - Forward propagation et calcul vectoriel des activations.
-
 ---
 
 ## Récapitulatif des Algorithmes et Formules Mathématiques

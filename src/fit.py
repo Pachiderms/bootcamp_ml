@@ -2,6 +2,7 @@ import numpy as np
 from src.gradient import gradient
 from src.decorators import check_type_and_shape_fit
 
+
 @check_type_and_shape_fit
 def fit_(x, y, theta, alpha, max_iter):
     """

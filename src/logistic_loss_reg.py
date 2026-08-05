@@ -2,6 +2,7 @@ import numpy as np
 from src.l2_reg import l2
 from src.decorators import check_type_and_shape_reg_loss
 
+
 @check_type_and_shape_reg_loss
 def reg_log_loss_(y, y_hat, theta, lambda_):
     """Computes the regularized loss of a logistic regression model from two non-empty numpy.ndarray,
@@ -19,5 +20,6 @@ def reg_log_loss_(y, y_hat, theta, lambda_):
     This function should not raise any Exception.
     """
     m = y.shape[0]
-    return ((-1 / m) * np.sum(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat)).item()) + ((lambda_ / (2 * m)) * l2(theta))
-    
+    return (
+        (-1 / m) * np.sum(y * np.log(y_hat) + (1 - y) * np.log(1 - y_hat)).item()
+    ) + ((lambda_ / (2 * m)) * l2(theta))

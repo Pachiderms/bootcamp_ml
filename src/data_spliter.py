@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_split
 
+
 @check_type_and_shape_split
 def data_spliter(x, y, proportion):
     """Shuffles and splits the dataset (given by x and y) into a training and a test set,
@@ -25,5 +26,9 @@ def data_spliter(x, y, proportion):
     np.random.seed(0)
     np.random.shuffle(y)
 
-    return (x[:int(m * proportion)], x[int(m * proportion):],
-            y[:int(m * proportion)], y[int(m * proportion):])
+    return (
+        x[: int(m * proportion)],
+        x[int(m * proportion) :],
+        y[: int(m * proportion)],
+        y[int(m * proportion) :],
+    )

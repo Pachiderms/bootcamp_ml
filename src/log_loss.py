@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_vector_pair
 
+
 @check_type_and_shape_vector_pair
 def log_loss_(y, y_hat, eps=1e-15):
     """

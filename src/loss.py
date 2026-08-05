@@ -1,6 +1,7 @@
 import numpy as np
 from src.decorators import check_type_and_shape_vector_pair_any
 
+
 @check_type_and_shape_vector_pair_any
 def loss_elem_(y, y_hat):
     """
@@ -18,6 +19,7 @@ def loss_elem_(y, y_hat):
     """
     J_elem = (y_hat - y) ** 2
     return J_elem
+
 
 @check_type_and_shape_vector_pair_any
 def loss_simple(y, y_hat):
@@ -37,6 +39,7 @@ def loss_simple(y, y_hat):
     m = y.shape[0]
     mse = np.sum((y_hat - y) ** 2) / (2 * m)
     return mse
+
 
 @check_type_and_shape_vector_pair_any
 def loss_(y, y_hat):
@@ -60,6 +63,7 @@ def loss_(y, y_hat):
     Y = np.squeeze(y_hat)
     return np.dot((Y - X), (Y - X)) / (2 * m)
 
+
 @check_type_and_shape_vector_pair_any
 def mse_(y, y_hat):
     """
@@ -78,6 +82,7 @@ def mse_(y, y_hat):
     mse = np.sum((y_hat - y) ** 2) / m
     return mse
 
+
 @check_type_and_shape_vector_pair_any
 def rmse_(y, y_hat):
     """
@@ -95,6 +100,7 @@ def rmse_(y, y_hat):
     m = y.shape[0]
     rmse = np.sqrt(np.sum((y_hat - y) ** 2) / m)
     return rmse
+
 
 @check_type_and_shape_vector_pair_any
 def mae_(y, y_hat):
@@ -132,5 +138,5 @@ def r2score_(y, y_hat):
     ss_res = np.sum((y_hat - y) ** 2)
     ss_tot = np.sum((y - np.mean(y)) ** 2)
     r2score = 1 - (ss_res / ss_tot)
-    
+
     return r2score
