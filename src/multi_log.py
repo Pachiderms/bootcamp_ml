@@ -89,7 +89,7 @@ def one_vs_all_log():
     Description:
         This program does:
         1. Split the dataset into a training and a test set.
-        2. Train 4 logistic regression classifiers to discriminate each class from the others (the
+        2. Train 24 logistic regression classifiers to discriminate each class from the others (the
         way you did in part one).
         3. Predict for each example the class according to each classifier and select the one
         with the highest output probability score.
@@ -107,66 +107,71 @@ def one_vs_all_log():
     X = np.array(df.iloc[:, 1:4])
     Y = np.array(df["Origin"]).reshape(-1, 1)
     x_train, x_test, y_train_full, y_test_full = data_spliter(X, Y, 0.7)
-    probas = []
+    xtr = add_polynomial_features(x_train, 3)
+    xtst = add_polynomial_features(x_test, 3)
+    train_min = xtr.min(axis=0)
+    train_max = xtr.max(axis=0)
 
-    lambdas_ = np.linspace(0.0, 1.2, 6)
-    for planet in range(4):
-        xtr = add_polynomial_features(x_train, 3)
-        y_train = (y_train_full == planet).astype(int)
+    x_train_norm = (xtr - train_min) / (train_max - train_min)
+    x_test_norm = (xtst - train_min) / (train_max - train_min)
 
-        train_min = xtr.min(axis=0)
-        train_max = xtr.max(axis=0)
+    lambdas_ = np.linspace(0.0, 1.0, num=6)
+    scores = {}
 
-        x_train_norm = (xtr - train_min) / (train_max - train_min)
-        x_test_norm = (x_test - train_min) / (train_max - train_min)
+    for lambda_ in lambdas_:
 
-        model = MyLogR(
-            thetas=np.ones((xtr.shape[1] + 1, 1)),
-            alpha=1e-1,
-            max_iter=50000,
-            penality="l2",
-            lambda_=lambda_,
-        ).fit_(x_train_norm, y_train)
+        probas = []
+        for planet in range(4):
+            y_train = (y_train_full == planet).astype(int)
 
-        for lambda_ in lambdas_:
-            model.set_params(lambda_=lambda_)
+            model = MyLogR(
+                thetas=np.ones((xtr.shape[1] + 1, 1)),
+                alpha=1e-1,
+                max_iter=50000,
+                penality="l2",
+                lambda_=lambda_,
+            ).fit_(x_train_norm, y_train)
             proba = model.predict_(x_test_norm)
             probas.append(proba)
 
-        print(f"planet {planet} done.")
+        probas = np.column_stack(probas)
+        y_pred = np.argmax(probas, axis=1).reshape(-1, 1)
 
-    print(f"predictions: {probas}")
+        score = f1_score_(y_test_full, y_pred)
+        scores[lambda_] = score
+        print(f"lambda {float(lambda_)} done.")
+
+    print("job finished.")
+
+    key_map = {i: key for i, key in enumerate(scores.keys())}
+    for lambda_ in scores.keys():
+        print(f"f1_score for lamda_={lambda_}: {scores[lambda_]}")
+
+    predictions = np.argmax(probas, axis=1).reshape(-1, 1)
+    best_lambda = key_map.get(np.argmax([score for score in scores.values()]))
+
+    _, ax = plt.subplots(1, 2, figsize=(18, 6))
+
+    for i in range(3):
+        x = x_test[:, i]
+        ax[0].scatter(
+            x, y_test_full, c=predictions.ravel(), alpha=0.6, marker="o", s=100
+        )
+        ax[0].set_xlabel("Predicted zipcode")
+        ax[0].set_ylabel("Target zipcode")
+        ax[0].set_title(
+            f"Predictions vs Target Values for best model: lambda_={best_lambda}"
+        )
+
+    plot_scores = [score * 100 for score in scores.values()]
+    bar_colors = ["red", "blue", "green", "grey", "grey", "grey"]
+
+    ax[1].bar(lambdas_, plot_scores, color=bar_colors, width=0.15)
+    ax[1].set_xlabel("lambda")
+    ax[1].set_ylabel("f1_score in percent (%)")
+    ax[1].set_title("f1_score depending on lambda value")
+
+    plt.show()
 
 
-#     scores = f1_score_(y_test_full, np.column_stack([probas[0], probas[1], probas[2], probas[3]]))
-#     prediction = np.argmax(scores, axis=1).reshape(-1, 1)
-
-#     match = prediction == y_test_full
-#     print(f"eval predictions: {np.sum(match) * 100 / len(y_test_full)}% accurate.\n\
-# ({np.sum(match)} good predictions out of {len(y_test_full)}).")
-
-#     height = x_test[:, 0]
-#     weight = x_test[:, 1]
-#     bone_density = x_test[:, 2]
-
-#     _, axs = plt.subplots(1, 3, figsize=(18, 6))
-
-#     axs[0].scatter(weight, height, c=y_test_full.ravel(), alpha=0.4)
-#     axs[0].scatter(weight, height, c=prediction.ravel(), marker="x")
-#     axs[0].set_xlabel("Weight")
-#     axs[0].set_ylabel("Height")
-#     axs[0].set_title("Weight vs Height")
-
-#     axs[1].scatter(weight, bone_density, c=y_test_full.ravel(), alpha=0.4)
-#     axs[1].scatter(weight, bone_density, c=prediction.ravel(), marker="x")
-#     axs[1].set_xlabel("Weight")
-#     axs[1].set_ylabel("Bone density")
-#     axs[1].set_title("Weight vs Bone Density")
-
-#     axs[2].scatter(height, bone_density, c=y_test_full.ravel(), alpha=0.4)
-#     axs[2].scatter(height, bone_density, c=prediction.ravel(), marker="x")
-#     axs[2].set_xlabel("Height")
-#     axs[2].set_ylabel("Bone density")
-#     axs[2].set_title("Height vs Bone Density")
-
-#     plt.show()
+one_vs_all_log()
