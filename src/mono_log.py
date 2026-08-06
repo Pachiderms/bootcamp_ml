@@ -44,7 +44,10 @@ def mono_log_(zipcode=0):
     x_test_norm = (x_test - train_min) / (train_max - train_min)
 
     my_log_reg = MyLR(
-        thetas=np.ones((x_train.shape[1] + 1, 1)), alpha=1e-1, max_iter=50000
+        thetas=np.ones((x_train.shape[1] + 1, 1)),
+        alpha=1e-1,
+        max_iter=50000,
+        penality=None,
     ).fit_(x_train_norm, y_train)
 
     prob = my_log_reg.predict_(x_test_norm)

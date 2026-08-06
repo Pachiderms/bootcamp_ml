@@ -18,6 +18,8 @@ def add_polynomial_features(x, power):
     Raises:
     This function should not raise any Exception.
     """
+    if power == 1:
+        return x
     m, n = x.shape
     P = [np.power(x, pow) for pow in range(1, power + 1)]
     X = np.concatenate(P, axis=1)

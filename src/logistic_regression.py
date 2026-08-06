@@ -63,7 +63,7 @@ class MyLogisticRegression:
         J_elem = (y_hat - y) ** 2
         return J_elem
 
-    def loss_(self, y, y_hat, theta):
+    def loss_(self, y, y_hat, theta=None):
         return (
             vec_log_loss_(y, y_hat)
             if self.penality == None

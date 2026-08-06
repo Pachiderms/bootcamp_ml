@@ -4,7 +4,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from src.polynomial_model_extended import add_polynomial_features
 from src.other_metrics import f1_score_
-from src.logistic_regression import MyLogisticRegression as MyLR
 from src.logistic_regression import MyLogisticRegression as MyLogR
 
 
@@ -31,7 +30,6 @@ def one_vs_all():
     X = np.array(df.iloc[:, 1:4])
     Y = np.array(df["Origin"]).reshape(-1, 1)
     x_train, x_test, y_train_full, y_test_full = data_spliter(X, Y, 0.7)
-    y_train = (y_train_full == planet).astype(int)
 
     train_min = x_train.min(axis=0)
     train_max = x_train.max(axis=0)
@@ -42,8 +40,13 @@ def one_vs_all():
     probas = []
 
     for planet in range(4):
-        model = MyLR(
-            thetas=np.ones((x_train.shape[1] + 1, 1)), alpha=1e-1, max_iter=50000
+        y_train = (y_train_full == planet).astype(int)
+
+        model = MyLogR(
+            thetas=np.ones((x_train.shape[1] + 1, 1)),
+            alpha=1e-1,
+            max_iter=50000,
+            penality=None,
         ).fit_(x_train_norm, y_train)
         models.append(model)
 

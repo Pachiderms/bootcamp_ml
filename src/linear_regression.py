@@ -79,6 +79,8 @@ def add_polynomial_features(x, power):
     Raises:
         This function should not raise any Exception.
     """
+    if power == 1:
+        return x
     e = np.arange(1, power + 1)
 
     return x**e
