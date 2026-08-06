@@ -172,6 +172,3 @@ def one_vs_all_log():
     ax[1].set_title("f1_score depending on lambda value")
 
     plt.show()
-
-
-one_vs_all_log()
